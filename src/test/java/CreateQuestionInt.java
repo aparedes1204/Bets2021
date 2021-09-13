@@ -18,7 +18,7 @@ import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import test.businessLogic.TestFacadeImplementation;
 
-public class FacadeTest {
+public class CreateQuestionInt {
 	 static BLFacadeImplementation sut;
 	 static TestFacadeImplementation testBL;
 

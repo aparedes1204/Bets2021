@@ -17,7 +17,7 @@ import exceptions.QuestionAlreadyExist;
 import test.businessLogic.TestFacadeImplementation;
 import test.dataAccess.TestDataAccess;
 
-public class DataAccessTest {
+public class CreateQuestionDAW {
 
 	 //sut:system under test
 	 static DataAccess sut=new DataAccess(false);
