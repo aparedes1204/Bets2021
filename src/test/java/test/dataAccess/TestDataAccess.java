@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 
 import configuration.ConfigXML;
 import domain.Event;
+import domain.Question;
 
 public class TestDataAccess {
 	protected  EntityManager  db;
@@ -79,5 +80,14 @@ public class TestDataAccess {
 				}
 				return ev;
 	    }
+		public boolean existQuestion(Event ev,Question q) {
+			System.out.println(">> DataAccessTest: existQuestion");
+			Event e = db.find(Event.class, ev.getEventNumber());
+			if (e!=null) {
+				return e.DoesQuestionExists(q.getQuestion());
+			} else 
+			return false;
+			
+		}
 }
 

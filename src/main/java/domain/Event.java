@@ -100,6 +100,7 @@ public class Event implements Serializable {
 	 * @return true if the question exists and false in other case
 	 */
 	public boolean DoesQuestionExists(String question)  {	
+		
 		for (Question q:this.getQuestions()){
 			if (q.getQuestion().compareTo(question)==0)
 				return true;

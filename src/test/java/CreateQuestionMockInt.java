@@ -33,49 +33,10 @@ public class CreateQuestionMockInt {
 	
 	//sut.createQuestion:  The event has one question with a queryText. 
 
-	@Test
-	public void test1() {
-		try {
-			//define paramaters
-			String queryText="proba galdera";
-			Float betMinimum=new Float(2);
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-			Date oneDate=null;;
-			try {
-				oneDate = sdf.parse("05/10/2022");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			
-			//configure Mock
-			Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
-			Mockito.when(dataAccess.createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(QuestionAlreadyExist.class);
-			
-
-			//invoke System Under Test (sut) 
-			sut.createQuestion(mockedEvent, queryText, betMinimum);
-			
-			//if the program continues fail
-		    fail();
-		   } catch (QuestionAlreadyExist e) {
-			// TODO Auto-generated catch block
-			   
-			// if the program goes to this point OK
-			assertTrue(true);
-			} catch (EventFinished e) {
-				// if the program goes to this point fail
-			    fail();
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		   }
-	
-	
 	
 	@Test
 	//sut.createQuestion:  The event has NOT a question with a queryText.
-	public void test2() {
+	public void test1() {
 			try {
 				//define paramaters
 				String queryText="proba galdera";
@@ -122,5 +83,88 @@ public class CreateQuestionMockInt {
 					e.printStackTrace();
 				}
 			   }
+	@Test
+	//sut.createQuestion:  The event is null.
+	public void test3() {
+		try {
+			//define paramaters
+			String queryText="proba galdera";
+			Float betMinimum=new Float(2);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date oneDate=null;;
+			try {
+				oneDate = sdf.parse("05/10/2022");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			//configure Mock
+			Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
+			Mockito.doReturn(null).when(dataAccess).createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class));
+
+			
+
+			//invoke System Under Test (sut) 
+			Question q=sut.createQuestion(null, queryText, betMinimum);
+			
+			//verify the results
+			//Mockito.verify(dataAccess,Mockito.times(1)).createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class));
+			
+			
+
+			assertTrue(q==null);
+			
+
+		   } catch (QuestionAlreadyExist e) {
+			// TODO Auto-generated catch block
+			fail();
+			} catch (EventFinished e) {
+			    fail();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   }
+	@Test
+	public void test7() {
+		try {
+			//define paramaters
+			String queryText="proba galdera";
+			Float betMinimum=new Float(2);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			Date oneDate=null;;
+			try {
+				oneDate = sdf.parse("05/10/2022");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
+			//configure Mock
+			Mockito.doReturn(oneDate).when(mockedEvent).getEventDate();
+			Mockito.when(dataAccess.createQuestion(Mockito.any(Event.class),Mockito.any(String.class), Mockito.any(Integer.class))).thenThrow(QuestionAlreadyExist.class);
+			
+
+			//invoke System Under Test (sut) 
+			sut.createQuestion(mockedEvent, queryText, betMinimum);
+			
+			//if the program continues fail
+		    fail();
+		   } catch (QuestionAlreadyExist e) {
+			// TODO Auto-generated catch block
+			   
+			// if the program goes to this point OK
+			assertTrue(true);
+			} catch (EventFinished e) {
+				// if the program goes to this point fail
+			    fail();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   }
+	
+	
+	
+	
 		
 }

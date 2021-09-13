@@ -37,6 +37,9 @@ public class DataAccess  {
 
 		open(initializeMode);
 		
+		if (initializeMode)
+			initializeDB();
+		
 	}
 
 	public DataAccess()  {	
