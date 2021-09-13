@@ -28,9 +28,9 @@ public class TestFacadeImplementation {
 
 		}
 		
-		public Event addEvent(String desc, Date d) {
+		public Event addEventWithQuestion(String desc, Date d, String q, float qty) {
 			dbManagerTest.open();
-			Event o=dbManagerTest.addEvent(desc,d);
+			Event o=dbManagerTest.addEventWithQuestion(desc,d,q, qty);
 			dbManagerTest.close();
 			return o;
 

@@ -64,12 +64,13 @@ public class TestDataAccess {
 		return false;
     }
 		
-		public Event addEvent(String desc, Date d) {
+		public Event addEventWithQuestion(String desc, Date d, String question, float qty) {
 			System.out.println(">> DataAccessTest: addEvent");
 			Event ev=null;
 				db.getTransaction().begin();
 				try {
 				    ev=new Event(desc,d);
+				    ev.addQuestion(question, qty);
 					db.persist(ev);
 					db.getTransaction().commit();
 				}

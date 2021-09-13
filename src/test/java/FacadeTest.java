@@ -29,7 +29,9 @@ public class FacadeTest {
 		//sut= new BLFacadeImplementation();
 		
 		// you can parametrize the DataAccess used by BLFacadeImplementation
-		DataAccess da= new DataAccess(ConfigXML.getInstance().getDataBaseOpenMode().equals("initialize"));
+		//DataAccess da= new DataAccess(ConfigXML.getInstance().getDataBaseOpenMode().equals("initialize"));
+		DataAccess da= new DataAccess(false);
+
 		sut=new BLFacadeImplementation(da);
 		
 		testBL= new TestFacadeImplementation();
@@ -41,7 +43,8 @@ public class FacadeTest {
 		try {
 			
 			//define paramaters
-			String queryText="proba galdera";
+			String eventText="event1";
+			String queryText="query1";
 			Float betMinimum=new Float(2);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -54,8 +57,7 @@ public class FacadeTest {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEvent(queryText,oneDate );
-			sut.createQuestion(ev, queryText, betMinimum);
+			ev = testBL.addEventWithQuestion(eventText,oneDate,queryText,betMinimum );
 			
 			
 			//invoke System Under Test (sut)  
@@ -86,7 +88,8 @@ public class FacadeTest {
 		try {
 			
 			//define paramaters
-			String queryText="proba galdera";
+			String eventText="event1";
+			String queryText="query1";
 			Float betMinimum=new Float(2);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -99,7 +102,7 @@ public class FacadeTest {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEvent(queryText,oneDate );			
+			ev = testBL.addEventWithQuestion(eventText,oneDate,"query2",betMinimum );
 			
 			//invoke System Under Test (sut)  
 			Question q=sut.createQuestion(ev, queryText, betMinimum);

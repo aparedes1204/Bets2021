@@ -15,11 +15,15 @@ import domain.Question;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
 import test.businessLogic.TestFacadeImplementation;
+import test.dataAccess.TestDataAccess;
 
 public class DataAccessTest {
 
-	 static DataAccess sut=new DataAccess(ConfigXML.getInstance().getDataBaseOpenMode().equals("initialize"));;
-	 static TestFacadeImplementation testBL=new TestFacadeImplementation();;
+	 //sut:system under test
+	 static DataAccess sut=new DataAccess(false);
+	 
+	 //additional operations needed to execute the test 
+	 static TestDataAccess testDA=new TestDataAccess();;
 
 	private Event ev;
 	
@@ -29,7 +33,8 @@ public class DataAccessTest {
 		try {
 			
 			//define paramaters
-			String queryText="proba galdera";
+			String eventText="event1";
+			String queryText="query1";
 			Float betMinimum=new Float(2);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -42,8 +47,9 @@ public class DataAccessTest {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEvent(queryText,oneDate );
-			sut.createQuestion(ev, queryText, betMinimum);
+			testDA.open();
+			ev = testDA.addEventWithQuestion(eventText,oneDate,queryText, betMinimum);
+			testDA.close();
 			
 			
 			//invoke System Under Test (sut)  
@@ -54,12 +60,14 @@ public class DataAccessTest {
 		    fail();
 		   } catch (QuestionAlreadyExist e) {
 			// if the program goes to this point OK  
-			fail();
-			  // assertTrue(true);
+			//fail();
+			   assertTrue(true);
 			} finally {
 				  //Remove the created objects in the database (cascade removing)   
-		          boolean b=testBL.removeEvent(ev);
-		           System.out.println("Finally "+b);          
+				testDA.open();
+		         boolean b=testDA.removeEvent(ev);
+		          testDA.close();
+		          System.out.println("Finally "+b);          
 		        }
 		   }
 	@Test
@@ -68,7 +76,8 @@ public class DataAccessTest {
 		try {
 			
 			//define paramaters
-			String queryText="proba galdera";
+			String eventText="event1";
+			String queryText="query1";
 			Float betMinimum=new Float(2);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -81,7 +90,9 @@ public class DataAccessTest {
 			}	
 			
 			//configure the state of the system (create object in the dabatase)
-			ev = testBL.addEvent(queryText,oneDate );			
+			testDA.open();
+			ev = testDA.addEventWithQuestion(eventText,oneDate,"query2", betMinimum);
+			testDA.close();			
 			
 			//invoke System Under Test (sut)  
 			Question q=sut.createQuestion(ev, queryText, betMinimum);
@@ -99,7 +110,9 @@ public class DataAccessTest {
 			fail();
 			} finally {
 				  //Remove the created objects in the database (cascade removing)   
-		          boolean b=testBL.removeEvent(ev);
+				testDA.open();
+		          boolean b=testDA.removeEvent(ev);
+		          testDA.close();
 		           System.out.println("Finally "+b);          
 		        }
 		   }
