@@ -23,7 +23,7 @@ public class DataAccessTest {
 	 static DataAccess sut=new DataAccess(false);
 	 
 	 //additional operations needed to execute the test 
-	 static TestDataAccess testDA=new TestDataAccess();;
+	 static TestDataAccess testDA=new TestDataAccess();
 
 	private Event ev;
 	
