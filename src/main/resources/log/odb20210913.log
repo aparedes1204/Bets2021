@@ -1,0 +1,25 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-09-13 17:38:15 #1 store] 
+Database '/Users/iturrioz/git/Bets2021/src/main/resources/bets.temp' is opened by 2680@iMac-de-Jon.local
+
+[2021-09-13 17:38:15 #2 type] 
+Type domain.Question is not enhanced.
+
+[2021-09-13 17:38:15 #3 type] 
+Type domain.Event is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-09-13 17:38:23 #1 store] 
+Database '/Users/iturrioz/git/Bets2021/src/main/resources/bets.temp' has been recovered (tr. 456-460)
+
+[2021-09-13 17:38:23 #2 store] 
+Database '/Users/iturrioz/git/Bets2021/src/main/resources/bets.temp' is opened by 2684@iMac-de-Jon.local
+
+[2021-09-13 17:38:23 #3 type] 
+Type domain.Question is not enhanced.
+
+[2021-09-13 17:38:23 #4 type] 
+Type domain.Event is not enhanced.
+
