@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
-import dataAccess.DataAccess;
+import dataAccess.DataAccessInterface;
 import domain.Event;
 import domain.Question;
 import exceptions.EventFinished;
@@ -25,7 +25,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateQuestionMockInt {
-     DataAccess dataAccess=Mockito.mock(DataAccess.class);
+     DataAccessInterface dataAccess=Mockito.mock(DataAccessInterface.class);
      Event mockedEvent=Mockito.mock(Event.class);
 	
 	@InjectMocks

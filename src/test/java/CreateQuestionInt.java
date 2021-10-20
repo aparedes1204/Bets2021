@@ -11,7 +11,9 @@ import org.junit.Test;
 
 import businessLogic.BLFacadeImplementation;
 import configuration.ConfigXML;
-import dataAccess.DataAccess;
+import dao.ObjectDbDAOManager;
+import dataAccess.DataAccessInterface;
+import dataAccess.DataAccessDAO;
 import domain.Event;
 import domain.Question;
 import exceptions.EventFinished;
@@ -30,7 +32,7 @@ public class CreateQuestionInt {
 		
 		// you can parametrize the DataAccess used by BLFacadeImplementation
 		//DataAccess da= new DataAccess(ConfigXML.getInstance().getDataBaseOpenMode().equals("initialize"));
-		DataAccess da= new DataAccess(false);
+		DataAccessInterface da= new DataAccessDAO(new ObjectDbDAOManager());
 
 		sut=new BLFacadeImplementation(da);
 		

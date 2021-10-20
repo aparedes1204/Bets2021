@@ -25,7 +25,7 @@ import exceptions.QuestionAlreadyExist;
 /**
  * It implements the data access to the objectDb database
  */
-public class DataAccess  {
+public class DataAccess implements DataAccessInterface {
 	protected static EntityManager  db;
 	protected static EntityManagerFactory emf;
 
@@ -230,20 +230,13 @@ public class DataAccess  {
 	 	return res;
 	}
 	
-
-public void open(boolean initializeMode){
+@Override
+public void open(){
 		
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
 		String fileName=c.getDbFilename();
-		if (initializeMode) {
-			//fileName=fileName+";drop";
-			File f=new File(fileName);
-			f.delete();
-			File f2=new File(fileName+"$");
-			f2.delete();
-			System.out.println("DataBase removed");
-		}
+		
 		
 		if (c.isDatabaseLocal()) {
 			  emf = Persistence.createEntityManagerFactory("objectdb:"+fileName);
@@ -259,6 +252,7 @@ public void open(boolean initializeMode){
     	   }
 		
 	}
+
 public boolean existQuestion(Event event, String question) {
 	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
 	Event ev = db.find(Event.class, event.getEventNumber());
@@ -269,5 +263,18 @@ public boolean existQuestion(Event event, String question) {
 		db.close();
 		System.out.println("DataBase closed");
 	}
+
+	
+
+	@Override
+	public void emptyDatabase() {
+		
+		File f=new File(c.getDbFilename());
+		f.delete();
+		File f2=new File(c.getDbFilename()+"$");
+		f2.delete();
+		
+	}
 	
 }
+

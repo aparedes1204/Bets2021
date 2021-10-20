@@ -38,7 +38,8 @@ public class ConfigXML {
 	
 	private int databasePort;
 	
-
+	private String DAOManagerClassName;
+	
 	
 	private String user;
 	
@@ -64,6 +65,10 @@ public class ConfigXML {
 	
 	public boolean isDatabaseLocal() {
 		return databaseLocal;
+	}
+	
+	public String getDAOManagerClassName() {
+		return DAOManagerClassName;
 	}
 
 	public boolean isBusinessLogicLocal() {
@@ -105,6 +110,9 @@ public class ConfigXML {
 			  value= ((Element)config.getElementsByTagName("database").item(0)).getAttribute("local");
 			  databaseLocal=value.equals("true");
 			  
+			  
+			  DAOManagerClassName= ((Element)config.getElementsByTagName("database").item(0)).getAttribute("DAOManagerClassName");
+
 			  
 			  //Two possible values: "open" or "initialize"
 			  dataBaseOpenMode= getTagValue("dataBaseOpenMode", config);

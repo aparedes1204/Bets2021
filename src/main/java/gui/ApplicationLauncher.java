@@ -9,7 +9,11 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import configuration.ConfigXML;
+import dao.DAOManager;
+import dao.ObjectDbDAOManager;
 import dataAccess.DataAccess;
+import dataAccess.DataAccessDAO;
+import dataAccess.DataAccessInterface;
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
 
@@ -44,8 +48,15 @@ public class ApplicationLauncher {
 				//appFacadeInterface=new BLFacadeImplementation();
 
 				//In this option, you can parameterize the DataAccess (e.g. a Mock DataAccess object)
-
-				DataAccess da= new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
+				String dbManagerClassName=c.getDAOManagerClassName();
+				DataAccessInterface da;
+				if (dbManagerClassName.length()==0)
+					 da= new DataAccess();
+				else {
+					DAOManager daoManager=(DAOManager)Class.forName("dao."+dbManagerClassName).newInstance();
+					da=new DataAccessDAO(daoManager);
+				} 					
+				
 				appFacadeInterface=new BLFacadeImplementation(da);
 
 				

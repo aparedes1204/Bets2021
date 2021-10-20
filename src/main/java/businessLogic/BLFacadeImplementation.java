@@ -8,7 +8,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import configuration.ConfigXML;
-import dataAccess.DataAccess;
+import dao.ObjectDbDAOManager;
+import dataAccess.DataAccessInterface;
 import domain.Question;
 import domain.Event;
 import exceptions.EventFinished;
@@ -19,27 +20,29 @@ import exceptions.QuestionAlreadyExist;
  */
 @WebService(endpointInterface = "businessLogic.BLFacade")
 public class BLFacadeImplementation  implements BLFacade {
-	DataAccess dbManager;
+	DataAccessInterface dbManager;
 
 	public BLFacadeImplementation()  {		
 		System.out.println("Creating BLFacadeImplementation instance");
 		ConfigXML c=ConfigXML.getInstance();
 		
-		if (c.getDataBaseOpenMode().equals("initialize")) {
-		    dbManager=new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
+		/*if (c.getDataBaseOpenMode().equals("initialize")) {
+			
+		    dbManager=new DataAccessInterface(new ObjectDbDAOManager());
 			dbManager.initializeDB();
 			dbManager.close();
 			}
-		
+		*/
 	}
 	
-    public BLFacadeImplementation(DataAccess da)  {
+    public BLFacadeImplementation(DataAccessInterface da)  {
 		
 		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
 		ConfigXML c=ConfigXML.getInstance();
 		
 		if (c.getDataBaseOpenMode().equals("initialize")) {
-			da.open(true);
+			da.emptyDatabase();
+			da.open();
 			da.initializeDB();
 			da.close();
 
@@ -62,7 +65,7 @@ public class BLFacadeImplementation  implements BLFacade {
    public Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist{
 	   
 	    //The minimum bed must be greater than 0
-		dbManager.open(false);
+		dbManager.open();
 		Question qry=null;
 		
 	    
@@ -85,7 +88,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 */
     @WebMethod	
 	public Vector<Event> getEvents(Date date)  {
-		dbManager.open(false);
+		dbManager.open();
 		Vector<Event>  events=dbManager.getEvents(date);
 		dbManager.close();
 		return events;
@@ -99,7 +102,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * @return collection of dates
 	 */
 	@WebMethod public Vector<Date> getEventsMonth(Date date) {
-		dbManager.open(false);
+		dbManager.open();
 		Vector<Date>  dates=dbManager.getEventsMonth(date);
 		dbManager.close();
 		return dates;
@@ -107,9 +110,11 @@ public class BLFacadeImplementation  implements BLFacade {
 	
 	
 	public void close() {
-		DataAccess dB4oManager=new DataAccess(false);
+		//DataAccess dB4oManager=new DataAccess(false);
 
-		dB4oManager.close();
+		//dB4oManager.close();
+		dbManager.close();
+
 
 	}
 
@@ -119,7 +124,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 */	
     @WebMethod	
 	 public void initializeBD(){
-    	dbManager.open(false);
+    	dbManager.open();
 		dbManager.initializeDB();
 		dbManager.close();
 	}
