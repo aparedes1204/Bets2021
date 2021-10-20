@@ -236,8 +236,12 @@ public void open(boolean initializeMode){
 
 		String fileName=c.getDbFilename();
 		if (initializeMode) {
-			fileName=fileName+";drop";
-			System.out.println("Deleting the DataBase");
+			//fileName=fileName+";drop";
+			File f=new File(fileName);
+			f.delete();
+			File f2=new File(fileName+"$");
+			f2.delete();
+			System.out.println("DataBase removed");
 		}
 		
 		if (c.isDatabaseLocal()) {
