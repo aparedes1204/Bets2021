@@ -25,12 +25,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		System.out.println("Creating BLFacadeImplementation instance");
 		ConfigXML c=ConfigXML.getInstance();
 		
-		if (c.getDataBaseOpenMode().equals("initialize")) {
+		/*if (c.getDataBaseOpenMode().equals("initialize")) {
 		    dbManager=new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
 			dbManager.initializeDB();
 			dbManager.close();
 			}
-		
+		*/
 	}
 	
     public BLFacadeImplementation(DataAccess da)  {
@@ -38,12 +38,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		System.out.println("Creating BLFacadeImplementation instance with DataAccess parameter");
 		ConfigXML c=ConfigXML.getInstance();
 		
-		if (c.getDataBaseOpenMode().equals("initialize")) {
+		/*if (c.getDataBaseOpenMode().equals("initialize")) {
 			da.open(true);
 			da.initializeDB();
 			da.close();
 
-		}
+		}*/
 		dbManager=da;		
 	}
 	
