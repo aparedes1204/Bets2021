@@ -36,11 +36,11 @@ public class DataAccess  {
 		
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
-		open(initializeMode);
+		//open(initializeMode);
 		
-		if (initializeMode)
+		/*if (initializeMode)
 			initializeDB();
-		
+		*/
 	}
 
 	public DataAccess()  {	
