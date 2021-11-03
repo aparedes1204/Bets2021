@@ -123,6 +123,14 @@
     		<version>1.9.5</version>
     		<scope>test</scope>
 		</dependency>
+	
+	<!-- test the Gui -->
+		
+		 <dependency>
+ 			 <groupId>org.assertj</groupId>
+  			 <artifactId>assertj-swing-junit</artifactId>
+ 			 <version>3.8.0</version>
+		 </dependency>
 
 	</dependencies>
 
