@@ -88,7 +88,7 @@ public class FindQuestionsGUI extends JFrame {
 
 		this.getContentPane().add(jButtonClose, null);
 
-
+		jCalendar1.setName("calendar");
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
 
@@ -131,6 +131,8 @@ public class FindQuestionsGUI extends JFrame {
 							row.add(ev); // ev object added in order to obtain it with tableModelEvents.getValueAt(i,2)
 							tableModelEvents.addRow(row);		
 						}
+						tableEvents.setName("tableEvents");
+
 						tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 						tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
 						tableEvents.getColumnModel().removeColumn(tableEvents.getColumnModel().getColumn(2)); // not shown in JTable
@@ -186,6 +188,7 @@ public class FindQuestionsGUI extends JFrame {
 		scrollPaneQueries.setViewportView(tableQueries);
 		tableModelQueries = new DefaultTableModel(null, columnNamesQueries);
 
+		tableQueries.setName("tableQueries");
 		tableQueries.setModel(tableModelQueries);
 		tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 		tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);

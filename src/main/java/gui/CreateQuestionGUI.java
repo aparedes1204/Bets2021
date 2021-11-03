@@ -59,10 +59,13 @@ public class CreateQuestionGUI extends JFrame {
 		jComboBoxEvents.setBounds(new Rectangle(275, 47, 250, 20));
 		jLabelListOfEvents.setBounds(new Rectangle(290, 18, 277, 20));
 		jLabelQuery.setBounds(new Rectangle(25, 211, 75, 20));
+		jTextFieldQuery.setName("QueryText");
 		jTextFieldQuery.setBounds(new Rectangle(100, 211, 429, 20));
 		jLabelMinBet.setBounds(new Rectangle(25, 243, 75, 20));
+		jTextFieldPrice.setName("BidPrice");
 		jTextFieldPrice.setBounds(new Rectangle(100, 243, 60, 20));
 
+		jCalendar.setName("calendar");
 		jCalendar.setBounds(new Rectangle(40, 50, 225, 150));
 		scrollPaneEvents.setBounds(new Rectangle(25, 44, 346, 116));
 
@@ -182,7 +185,7 @@ public class CreateQuestionGUI extends JFrame {
 	 		calendar.setTime(d);
 	 		System.out.println(d);
 	 		
-
+	 		
 			
 			// Obtain the component of the day in the panel of the DayChooser of the
 			// JCalendar.

@@ -6,23 +6,46 @@ import static org.assertj.swing.core.matcher.JButtonMatcher.withName;
 import static org.assertj.swing.core.matcher.JButtonMatcher.withText;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Frame;
 import java.net.URL;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
+import org.assertj.swing.core.BasicComponentFinder;
+import org.assertj.swing.core.BasicRobot;
+import org.assertj.swing.core.ComponentFinder;
+import org.assertj.swing.core.GenericTypeMatcher;
+import org.assertj.swing.core.Robot;
+import org.assertj.swing.core.matcher.FrameMatcher;
+import org.assertj.swing.core.matcher.JButtonMatcher;
+import org.assertj.swing.data.TableCell;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
+import org.assertj.swing.finder.FrameFinder;
+import org.assertj.swing.finder.WindowFinder;
 import org.assertj.swing.fixture.FrameFixture;
+import org.assertj.swing.fixture.JButtonFixture;
+import org.assertj.swing.fixture.JComboBoxFixture;
+import org.assertj.swing.fixture.JPanelFixture;
+import org.assertj.swing.fixture.JSpinnerFixture;
+import org.assertj.swing.fixture.JTableCellFixture;
+import org.assertj.swing.fixture.JTableFixture;
+import org.assertj.swing.fixture.JTextComponentFixture;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.components.JSpinField;
 
 import businessLogic.BLFacade;
 import businessLogic.BLFacadeImplementation;
@@ -39,6 +62,11 @@ import gui.MainGUI;
 public class TestApp {
 
     private FrameFixture window;
+    MainGUI frame;
+    FrameFixture frame2;
+    Robot robot;
+    public static int v=0;
+
 
     /**
      * Constructor de clase
@@ -60,17 +88,13 @@ public class TestApp {
      */
     @Before
     public void setUp() {
+    	 robot = BasicRobot.robotWithNewAwtHierarchy();
     	//Frame frame=configureStart();
-        MainGUI frame = GuiActionRunner.execute(() -> new MainGUI());
+        frame = GuiActionRunner.execute(() -> new MainGUI());
         configureStart(frame);
-        window = new FrameFixture(frame);
+        window = new FrameFixture(robot,frame);
         window.show();
-        try {
-			TimeUnit.SECONDS.sleep(1);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        
         
     }
 
@@ -83,60 +107,88 @@ public class TestApp {
         window.cleanUp();
     }
     
-    @Test
-    public void ConversionOctal() {                
-        //window.textBox("numero").enterText("45");
+ /*   @Test
+    public void SearchEventQueries() {      
+    	window.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries")).andShowing()).click();
+        FrameFixture frame = WindowFinder.findFrame(FrameMatcher.withTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"))).using(robot).requireVisible();
+        Utils.setDateCalendar(frame,2021,11,17);
+  	//lo(6);
+     JTableFixture tableEventFixture=frame.table("tableEvents");
+     tableEventFixture.cell(TableCell.row(0).column(0)).click();
+     //tableEventFixture.cell("Atletico-Athletic").click();
+
+     //tableEventFixture.click();
+     //tableEventFixture.cell(TableCell.row(1).column(0)).click();
+     JTableFixture tableQueriesFixture=frame.table("tableQueries");
+     System.out.println("rows "+ tableQueriesFixture.rowCount());
+     JTableCellFixture cell;
+     for (int r=0; r<tableQueriesFixture.rowCount(); r++) {
+         for (int c=0; c<2; c++) {
+    	  cell=tableQueriesFixture.cell(TableCell.row(r).column(c));
+    	  System.out.print(cell.value()+" ");
+         }
+     	System.out.println();
+    }
+    
+
+  //JButtonFixture buttonClose=frame.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("Close")).andShowing());
+  	//buttonClose.click();
+    	
+    	//JPanelFixture bf=dayFixture.button(andText("25"));
+    	
+    	
+    
+    	//jCalendar.getMonthChooser().getComboBox()
+    	//ComponentFinder finder = BasicComponentFinder.finderWithNewAwtHierarchy();
+    	//finder.findByName("login", true); // will fail finding component of login frame
+    	// new MainFrame();
+    	//finder.findByName(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"), true); // will work finding label of main frame
+    	//window.textBox("numero").enterText("45");
         //window.comboBox("opcion").selectItem("Octal");        
         //window.button(withName("convertir")).click();       
         //realiza la comparación de resultados
-        //assertThat(window.textBox("resultado").text()).isEqualTo("55");        
+        //assertThat(window.textBox("resultado").text()).isEqualTo("55");      
+    	  
     }
-  /*  
+    */
     @Test
     public void conversionHexadecimal() {                
-        window.textBox("numero").enterText("26");
-        window.comboBox("opcion").selectItem("Hexadecimal");        
-        window.button(withName("convertir")).click();         
-        //realiza la comparación de resultados
-        assertThat(window.textBox("resultado").text()).isEqualTo("1A");        
-    }
-     
-    @Test
-    public void numeroFueraDerango() {
-        window.textBox("numero").enterText("226");
-        window.comboBox("opcion").selectItem("Hexadecimal");
-        window.button(withName("convertir")).click();
-        //cierra la ventana de alerta
-        window.dialog().button().click();
-        //verifica que controles se reinicien a cero "0"
-        assertThat(window.textBox("numero").text()).isEqualTo("0");     
-        assertThat(window.textBox("resultado").text()).isEqualTo("0");     
-    }
+    	window.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery")).andShowing()).click();
+        FrameFixture frame = WindowFinder.findFrame(FrameMatcher.withTitle(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery"))).using(robot).requireVisible();
+        Utils.setDateCalendar(frame,2021,11,17);   
+        frame.textBox("QueryText").enterText("Hello World!");    
+        frame.textBox("BidPrice").enterText("4");    
+        JButtonFixture buttonCreate=frame.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("CreateQuery")).andShowing());
+        buttonCreate.click();
+        JButtonFixture buttonClose=frame.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("Close")).andShowing());
+        buttonClose.click();
+        
+        window.button(JButtonMatcher.withText(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries")).andShowing()).click();
+        FrameFixture frame2 = WindowFinder.findFrame(FrameMatcher.withTitle(ResourceBundle.getBundle("Etiquetas").getString("QueryQueries"))).using(robot).requireVisible();
+        Utils.setDateCalendar(frame2,2021,11,17);
+  	//lo(6);
+     JTableFixture tableEventFixture=frame2.table("tableEvents");
+     tableEventFixture.cell(TableCell.row(0).column(0)).click();
+     //tableEventFixture.cell("Atletico-Athletic").click();
 
-    @Test
-    public void valorNumericoNoValido() {
-        window.textBox("numero").enterText("");
-        window.comboBox("opcion").selectItem("Octal");        
-        window.button("convertir").click();
-        //Cierra ventana de alerta
-        window.dialog().button(withText("No lo vuelvo hacer")).click();
-        //se comprueba que controles esten deshabilitados
-        window.textBox("numero").requireDisabled();
-        window.comboBox("opcion").requireDisabled();
-        window.button("convertir").requireDisabled();
+     //tableEventFixture.click();
+     //tableEventFixture.cell(TableCell.row(1).column(0)).click();
+     JTableFixture tableQueriesFixture=frame2.table("tableQueries");
+     System.out.println("rows "+ tableQueriesFixture.rowCount());
+     JTableCellFixture cell;
+     for (int r=0; r<tableQueriesFixture.rowCount(); r++) {
+         for (int c=0; c<2; c++) {
+    	  cell=tableQueriesFixture.cell(TableCell.row(r).column(c));
+    	  System.out.print(cell.value()+" ");
+         }
+     	System.out.println();
     }
-    
-    @Test
-    public void errorCritico() {
-        window.textBox("numero").enterText("98899979941993239211992309990991");
-        window.comboBox("opcion").selectItem("Hexadecimal");
-        window.button("convertir").click();
-        //cierra ventana de alerta
-        window.dialog().button().click();        
-        //verifica que textbox se haya reiniciado a cero "0"
-        assertThat(window.textBox("numero").text()).isEqualTo("0");    
-    }
-*/
+    Utils.lo(6);
+        
+        
+
+    }  
+   
     public void configureStart(JFrame frame) {
     	
     	ConfigXML c=ConfigXML.getInstance();
@@ -206,6 +258,8 @@ public class TestApp {
 		System.out.println("Error in ApplicationLauncher: "+e.toString());
 	}
 }
+   
+    
 }
 
 
