@@ -1,0 +1,23 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2021-11-12 09:30:48 #1 store] 
+Database '/home/aitor/Coding/Bets2021/src/main/resources/bets.temp' is opened by 5475@aitor-ZenBook-Pro-15-UX550GDX-UX580GD
+
+[2021-11-12 09:30:48 #2 type.registry] 
+New type domain.Event
+
+[2021-11-12 09:30:48 #3 type] 
+Type domain.Event is not enhanced.
+
+[2021-11-12 09:30:48 #4 type.registry] 
+New type domain.Question
+
+[2021-11-12 09:30:48 #5 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2021-11-12 09:30:48 #6 type] 
+Type domain.Question is not enhanced.
+
+[2021-11-12 09:30:48 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
